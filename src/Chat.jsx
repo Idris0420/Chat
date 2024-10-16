@@ -37,7 +37,7 @@ function Chat(props){
     
     return(
         <div>
-            <div>{messages.map((message) => <h1>{message.text}</h1>)}</div>
+            <div>{messages.map((message, index) => <h1 key={index}>{message.text}</h1>)}</div>
             <form onSubmit={handleSubmit}>
                 <input value={message} placeholder="Enter your text here" onChange={e => setMessage(e.target.value)}/> <br />
                 <button type="submit">Submit</button>
