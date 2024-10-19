@@ -66,11 +66,7 @@ h1{
 
 
 .leaveButton {
-  position: absolute;
-  right: 10px; /* Slight adjustment from the right edge */
-  top: 45%;    /* Vertically centers the button */
-  transform: translateY(-50%); /* Center the button vertically */
-  z-index: 1;  /* Ensure it is above other content if necessary */
+  color: white;
   background-color: rgba(0, 0, 0, 0);
   border: none;
   font-size: 30px;
@@ -143,6 +139,6 @@ h1{
   text-align: center; /* For centering text inside */
   display: flex;
   justify-content: center;
-
+align-items: center;
   height: 80px;
 }

@@ -39,10 +39,10 @@ function Chat(props){
     
     return(
         <div className="chatContainer">
+            <button className="leaveButton" onClick={() => setRoom("")}>⬅</button>
             <div className="chatRoom">
                 <div className="roomTitle">
                     <h1>Welcome to Room: {room.toUpperCase()}</h1>
-                    <button className="leaveButton" onClick={() => setRoom("")}>⬅</button>
                 </div>
                 <div className="chats">
                     {messages.map((message) => 
