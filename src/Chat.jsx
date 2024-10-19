@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { addDoc, collection, onSnapshot, query, serverTimestamp, where } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import { auth, db } from "./firebase-config"
 
 function Chat(props){
-    const {room} = props;
+    const {room, setRoom} = props;
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const messageRef = collection(db, "messages");
 
     useEffect(() => {
-        const querryMessages = query(messageRef, where("room", "==", room))
-        onSnapshot(querryMessages, (snapshot) => {
+        const querryMessages = query(messageRef, where("room", "==", room), orderBy("createdAt"))
+        const unsubscribe = onSnapshot(querryMessages, (snapshot) => {
             let messages = [];
             snapshot.forEach((doc) => {
                 messages.push({ ...doc.data(), id: doc.id });
@@ -18,6 +18,8 @@ function Chat(props){
             })
             setMessages(messages)
         })
+
+        return () => unsubscribe();
     }, [])
 
     async function handleSubmit(e){
@@ -36,12 +38,28 @@ function Chat(props){
 
     
     return(
-        <div>
-            <div>{messages.map((message, index) => <h1 key={index}>{message.text}</h1>)}</div>
-            <form onSubmit={handleSubmit}>
-                <input value={message} placeholder="Enter your text here" onChange={e => setMessage(e.target.value)}/> <br />
-                <button type="submit">Submit</button>
-            </form>
+        <div className="chatContainer">
+            <div className="chatRoom">
+                <div className="roomTitle">
+                    <h1>Welcome to Room: {room.toUpperCase()}</h1>
+                    <button className="leaveButton" onClick={() => setRoom("")}>⬅</button>
+                </div>
+                <div className="chats">
+                    {messages.map((message) => 
+                    <div key={message.id} className="userAndMessage">
+                        <p>{message.user}</p>
+                        <div className="chatBubble">{message.text}</div>
+                    </div>
+                    )}
+                </div>
+
+                <div className="chatInput">
+                    <form onSubmit={handleSubmit}>
+                        <input value={message} placeholder="Enter your text here" onChange={e => setMessage(e.target.value)}/> <br />
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
