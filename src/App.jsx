@@ -9,12 +9,10 @@ import { auth } from "./firebase-config";
 
 const cookies = new Cookies();
 
-
 function App() {
   const [isAuth, setIsAuth] = useState(cookies.get("auth-token"))
   const [room, setRoom] = useState("");
-
-  async function signUserOut(){
+    async function signUserOut(){
     signOut(auth);
     cookies.remove("auth-token");
     setIsAuth(false);
