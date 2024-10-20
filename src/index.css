@@ -17,7 +17,7 @@ html, body{
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  height: 50px;
 }
 
 .authPage{
@@ -73,6 +73,7 @@ h1{
 }
 
 .roomInput{
+  margin-top: -70px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -134,11 +135,22 @@ h1{
 
 .roomTitle {
   background-color: pink;
-  position: relative; /* Required for absolute child positioning */
+  position: relative; 
   width: 100%;
-  text-align: center; /* For centering text inside */
+  text-align: center;
   display: flex;
   justify-content: center;
 align-items: center;
   height: 80px;
+}
+
+.chatTime{
+  font-size: .8rem;
+  margin-top: 3px;
+}
+
+.insideRoom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

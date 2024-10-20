@@ -42,13 +42,18 @@ function Chat(props){
             <button className="leaveButton" onClick={() => setRoom("")}>⬅</button>
             <div className="chatRoom">
                 <div className="roomTitle">
-                    <h1>Welcome to Room: {room.toUpperCase()}</h1>
+                    <h1>Welcome to Room: {room}</h1>
                 </div>
                 <div className="chats">
                     {messages.map((message) => 
                     <div key={message.id} className="userAndMessage">
                         <p>{message.user}</p>
                         <div className="chatBubble">{message.text}</div>
+                        <p className="chatTime">
+                            {message.createdAt 
+                            ? message.createdAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+                            : "Time not available"}
+                        </p>
                     </div>
                     )}
                 </div>
