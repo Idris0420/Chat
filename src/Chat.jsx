@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore";
 import { auth, db } from "./firebase-config"
 
@@ -7,6 +7,7 @@ function Chat(props){
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const messageRef = collection(db, "messages");
+    const chatEndRef = useRef(null);
 
     useEffect(() => {
         const querryMessages = query(messageRef, where("room", "==", room), orderBy("createdAt"))
@@ -37,6 +38,10 @@ function Chat(props){
         setMessage("")
     }
 
+    useEffect(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
     
     return(
         <div className="chatContainer">
@@ -60,6 +65,7 @@ function Chat(props){
                         </div>
                     </div>
                     )}
+                    <div ref={chatEndRef} />
                 </div>
 
                 <div className="chatInput">
