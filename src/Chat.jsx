@@ -30,7 +30,8 @@ function Chat(props){
             text: message,
             createdAt: serverTimestamp(),
             user: auth.currentUser.displayName,
-            room: room
+            room: room,
+            userImg: auth.currentUser.photoURL
         })
 
         setMessage("")
@@ -47,13 +48,16 @@ function Chat(props){
                 <div className="chats">
                     {messages.map((message) => 
                     <div key={message.id} className="userAndMessage">
-                        <p>{message.user}</p>
-                        <div className="chatBubble">{message.text}</div>
-                        <p className="chatTime">
-                            {message.createdAt 
-                            ? message.createdAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
-                            : "Time not available"}
-                        </p>
+                        <img src={message.userImg} alt="" />
+                        <div>
+                            <p>{message.user}</p>
+                            <div className="chatBubble">{message.text}</div>
+                            <p className="chatTime">
+                                {message.createdAt 
+                                ? message.createdAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+                                : "Time not available"}
+                            </p>
+                        </div>
                     </div>
                     )}
                 </div>
